@@ -23,3 +23,48 @@ body {
     height: 100%;
     pointer-events: none;
 }
+
+#map svg circle,
+.legend > div {
+    --color-departures: steelblue;
+    --color-arrivals: darkorange;
+    --color: color-mix(
+        in oklch,
+        var(--color-departures) calc(100% * var(--departure-ratio)),
+        var(--color-arrivals)
+    );
+}
+
+#map svg circle {
+    fill: var(--color);
+    fill-opacity: 0.6;
+    stroke: white;
+    pointer-events: auto;
+}
+
+.legend {
+    display: flex;
+    gap: 1em;
+    margin-block: 1em;
+    align-items: center;
+}
+
+.legend::before {
+    content: 'Legend:';
+    font-weight: bold;
+}
+
+.legend > div {
+    display: flex;
+    align-items: center;
+    gap: 0.3em; /* small gap = swatch feels attached to label */
+}
+
+.legend > div::before {
+    content: '';
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    background-color: var(--color);
+    border-radius: 3px;
+}
